@@ -35,8 +35,9 @@ export class BoardComponent implements AfterViewInit {
     this.drawApple();
     this.drawSnake();
   }
+  
 
-  @HostListener('document:keypress', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (KEY_DIRECTION_MAP.get(event.key)) {
       let curr = KEY_DIRECTION_MAP.get(event.key);
@@ -84,6 +85,9 @@ export class BoardComponent implements AfterViewInit {
         }, 1000);
         this.gameState.started = true;
       }
+    }
+    else if (event.key == 'x' || event.key == 'X'){
+      this.gameState.gameOver = true;
     }
   }
 

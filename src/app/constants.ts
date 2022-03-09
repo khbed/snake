@@ -34,4 +34,8 @@ export const KEY_DIRECTION_MAP: Map<string, Directions> = new Map<
   ['D', Directions.Right],
   ['W', Directions.Up],
   ['S', Directions.Down],
+  ["ArrowLeft", Directions.Left],
+  ["ArrowRight", Directions.Right],
+  ["ArrowUp", Directions.Up],
+  ["ArrowDown", Directions.Down],
 ]);
