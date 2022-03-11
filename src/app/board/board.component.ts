@@ -41,53 +41,55 @@ export class BoardComponent implements AfterViewInit {
   handleKeyboardEvent(event: KeyboardEvent) {
     if (KEY_DIRECTION_MAP.get(event.key)) {
       let curr = KEY_DIRECTION_MAP.get(event.key);
-      switch (curr) {
-        case Directions.Down: {
-          if (this.gameState.lastDirection != Directions.Up) {
-            this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
-              event.key
-            ) as Directions;
-          }
-          break;
-        }
-        case Directions.Up: {
-          if (this.gameState.lastDirection != Directions.Down) {
-            this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
-              event.key
-            ) as Directions;
-          }
-          break;
-        }
-        case Directions.Left: {
-          if (this.gameState.lastDirection != Directions.Right) {
-            this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
-              event.key
-            ) as Directions;
-          }
-          break;
-        }
-        case Directions.Right: {
-          if (this.gameState.lastDirection != Directions.Left) {
-            this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
-              event.key
-            ) as Directions;
-          }
-          break;
-        }
-      }
+      if (!this.gameState.paused){
 
-      if (!this.gameState.started) {
-        clearInterval(this.gameState.intervalTimer);
-        this.gameState.intervalTimer = setInterval(() => {
-          if(!this.gameState.gameOver){
-            this.gameState.timer += 1;
+        switch (curr) {
+          case Directions.Down: {
+            if (this.gameState.lastDirection != Directions.Up) {
+              this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
+                event.key
+              ) as Directions;
+            }
+            break;
           }
-        }, 1000);
-        this.gameState.started = true;
+          case Directions.Up: {
+            if (this.gameState.lastDirection != Directions.Down) {
+              this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
+                event.key
+              ) as Directions;
+            }
+            break;
+          }
+          case Directions.Left: {
+            if (this.gameState.lastDirection != Directions.Right) {
+              this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
+                event.key
+              ) as Directions;
+            }
+            break;
+          }
+          case Directions.Right: {
+            if (this.gameState.lastDirection != Directions.Left) {
+              this.gameState.snakeDirection = KEY_DIRECTION_MAP.get(
+                event.key
+              ) as Directions;
+            }
+            break;
+          }
+        }
+        
+        if (!this.gameState.started) {
+          clearInterval(this.gameState.intervalTimer);
+          this.gameState.intervalTimer = setInterval(() => {
+            if(!this.gameState.gameOver){
+              if (!this.gameState.paused){
+                this.gameState.timer += 1;
+              }
+            }
+          }, 1000);
+          this.gameState.started = true;
+        }
       }
-    }
-    else if (event.key == 'x' || event.key == 'X'){
-      this.gameState.gameOver = true;
     }
   }
 
@@ -95,11 +97,13 @@ export class BoardComponent implements AfterViewInit {
     clearInterval(this.interval);
     this.interval = setInterval(() => {
       if(!this.gameState.gameOver){
-        this.gameState.moveSnake();
-        this.drawBackground();
-        this.drawApple();
-        this.drawSnake();
-        this.start(this.gameState.interval);
+        if (!this.gameState.paused){
+          this.gameState.moveSnake();
+          this.drawBackground();
+          this.drawApple();
+          this.drawSnake();
+          this.start(this.gameState.interval);
+        }
       }
     }, timer);
   }

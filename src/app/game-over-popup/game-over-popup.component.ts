@@ -128,7 +128,7 @@ export class GameOverPopupComponent implements AfterViewInit {
     context.fillRect(0, 0, BTN_SIZE, BTN_SIZE);
 
     context.fillStyle = EMPTY_TILE_COLOR;
-    if (this.hovered) context.globalAlpha = 0.9;
+    if (this.hovered) context.globalAlpha = 0.85;
     const INNER_SIZE = BTN_SIZE - 2 * SPACING;
     context.fillRect(SPACING, SPACING, INNER_SIZE, INNER_SIZE);
 

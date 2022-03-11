@@ -1,0 +1,4 @@
+<canvas id="pause-back"></canvas>
+<canvas id="pause-popup"></canvas>
+<canvas id="unpause" (mouseenter)="this.unpausedHovered = true" (mouseleave)="this.unpausedHovered = false" (click)="this.gameState.paused = false"></canvas>
+<canvas id="restart" (mouseenter)="this.restartHovered = true" (mouseleave)="this.restartHovered = false" (click)="this.gameState.reset()"></canvas>

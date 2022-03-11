@@ -9,6 +9,9 @@ import {
 } from '../constants';
 import { GameStateService } from '../game-state.service';
 
+const SCORE_BOARD_WIDTH = NUM_TILES * (TILE_SIZE + SPACING) + SPACING;
+const SCORE_BOARD_HEIGHT = 75;
+
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -25,8 +28,8 @@ export class ScoreBoardComponent implements AfterViewInit {
     let canvas = document.getElementById('score-board') as HTMLCanvasElement;
     let context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    canvas.width = NUM_TILES * (TILE_SIZE + SPACING) + SPACING;
-    canvas.height = 75;
+    canvas.width = SCORE_BOARD_WIDTH;
+    canvas.height = SCORE_BOARD_HEIGHT;
 
     this.drawScoreBoard();
   }
@@ -61,7 +64,10 @@ export class ScoreBoardComponent implements AfterViewInit {
 
     context.font = '20px Lucida Console';
     context.fillStyle = SNAKE_COLOR;
-    context.fillText('Timer: ' + JSON.stringify(this.gameState.timer), 25, 46);
-    context.fillText('Score: ' + JSON.stringify(this.gameState.score), 300, 46);
+    const text = `score: ${this.gameState.score}`;
+    context.fillText(text, 30, 45);
+    const text2 = `timer: ${this.gameState.timer}`;
+    const text2Pos = SCORE_BOARD_WIDTH - 30 - context.measureText(text2).width;
+    context.fillText(text2, text2Pos, 45);
   }
 }

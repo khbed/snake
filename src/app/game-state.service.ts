@@ -15,6 +15,7 @@ export class GameStateService {
   interval: number = 200;
   apple: Vec2 = { x: -1, y: -1 };
   intervalTimer = setInterval(() => {}, 100);
+  paused = false;
   gameOver = false;
   constructor() {
     this.setApplePos();
@@ -99,6 +100,7 @@ export class GameStateService {
     this.started = false;
     this.timer = 0;
     this.gameOver = false;
+    this.paused = false;
     clearInterval(this.intervalTimer);
   }
 
